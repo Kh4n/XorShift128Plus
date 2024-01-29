@@ -154,6 +154,12 @@ def main():
 
     # from the doubles, generate known piece of the original uint64 
     generated = []
+    out = state0
+    if browser != 'chrome':
+        out = (state0 + state1) & MASK
+    double = to_double(browser, out)
+    print('gen', double)
+    generated.append(double)
     for idx in range(len(dubs)):
         if browser == 'chrome':
             recovered = struct.unpack('<Q', struct.pack('d', dubs[idx] + 1))[0] & (MASK >> 12)
